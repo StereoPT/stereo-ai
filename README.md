@@ -1,1 +1,1 @@
-# stereo-ai
+# Stereo.AI

@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "stereo-ai"
+version = "0.1.0"
+description = ""
+authors = ["Guido Pereira <stereopt@gmail.com>"]
+readme = "README.md"
+packages = [{include = "app"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+dev = "app.main:start"
