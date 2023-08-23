@@ -2,6 +2,7 @@ import glob
 import random
 
 from os import path
+from pathlib import Path
 
 MODELS = [
     "Realistic Vision V5.1",
@@ -15,7 +16,8 @@ models_directory = "/Users/guidopereira/Downloads"
 
 def get_models_from_folder():
     models_pattern = path.join(models_directory, "*.safetensors")
-    model_files = glob.glob(models_pattern)
+    model_file_paths = glob.glob(models_pattern)
+    model_files = [Path(model_path).stem for model_path in model_file_paths]
 
     return model_files
 

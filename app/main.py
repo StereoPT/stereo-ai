@@ -5,12 +5,8 @@ import gradio as gr
 from .models import get_random_model
 
 
-def greet(name):
-    return f"Hello {name}!"
-
-
 with gr.Blocks() as demo:
-    text = gr.Interface(fn=greet, inputs="text", outputs="text")
+    random_model = gr.Interface(fn=get_random_model, inputs=None, outputs="text")
 
 
 if __name__ == "__main__":
