@@ -11,10 +11,8 @@ MODELS = [
     "MeinaHentai",
 ]
 
-models_directory = "/Users/guidopereira/Downloads"
 
-
-def get_models_from_folder():
+def get_models_from_folder(models_directory):
     models_pattern = path.join(models_directory, "*.safetensors")
     model_file_paths = glob.glob(models_pattern)
     model_files = [Path(model_path).stem for model_path in model_file_paths]
@@ -22,10 +20,10 @@ def get_models_from_folder():
     return model_files
 
 
-def get_random_model():
+def get_random_model(models_directory):
     models = []
-    if models_directory is not None:
-        folder_models = get_models_from_folder()
+    if len(models_directory) > 0:
+        folder_models = get_models_from_folder(models_directory)
         models.extend(folder_models)
 
     if len(models) <= 0:
