@@ -8,11 +8,9 @@ packages = [{include = "app"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+gradio = "^3.40.1"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.scripts]
-dev = "app.main:main"
