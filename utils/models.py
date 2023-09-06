@@ -1,11 +1,10 @@
-import json
 import random
+
+from .file import get_json_from_file
 
 
 def get_model():
-    with open("./data/models.json") as f:
-        content = f.read()
-        content_dict = json.loads(content)
+    models = get_json_from_file("./data/models.json")
 
-        random_model = random.choice(content_dict)
-        return random_model
+    random_model = random.choice(models)
+    return random_model

@@ -7,8 +7,7 @@ from utils.models import get_model
 class Generation:
     def __init__(self) -> None:
         self.model = get_model()
-        self.keywords = get_keywords()
+        self.keywords = get_keywords(15)
 
     def generate(self) -> None:
-        random_keywords = random.sample(self.keywords, 15)
-        return {"model": self.model, "keywords": random_keywords}
+        return {"model": self.model, "keywords": self.keywords}
