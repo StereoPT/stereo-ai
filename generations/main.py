@@ -1,6 +1,9 @@
+from utils.keywords import get_keywords
+
+
 class Generation:
     def __init__(self) -> None:
-        pass
+        self.keywords = get_keywords()
 
     def generate(self) -> None:
-        return "New Generation"
+        return self.keywords
