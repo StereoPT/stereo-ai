@@ -12,5 +12,6 @@ def get_keywords():
         keywords.extend(prompt_keywords)
 
     keyword_median = len(keywords) // len(positive_prompts)
-    random_keywords = random.sample(keywords, keyword_median)
+    sample_amount = keyword_median + random.randint(0, keyword_median)
+    random_keywords = random.sample(keywords, sample_amount)
     return random_keywords
