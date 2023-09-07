@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 
-from routes import generation
+from routes import generation, keywords
 
 
 app = FastAPI()
@@ -15,3 +15,4 @@ def docs():
 
 
 app.include_router(generation.router)
+app.include_router(keywords.router)
