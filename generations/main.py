@@ -1,5 +1,3 @@
-import random
-
 from utils.keywords import get_keywords
 from utils.models import get_model
 
