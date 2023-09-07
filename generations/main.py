@@ -8,4 +8,5 @@ class Generation:
         self.keywords = get_keywords()
 
     def generate(self) -> None:
+        print(", ".join(self.keywords))
         return {"model": self.model, "keywords": self.keywords}
