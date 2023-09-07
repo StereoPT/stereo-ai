@@ -1,25 +1,19 @@
+from schemas import Prompt
+from controllers import Keywords
 from fastapi import APIRouter
 
-from keywords import Keyword
 
 router = APIRouter(prefix="/keywords", tags=["Keywords"])
 
 
 @router.get("/")
 def get_keywords():
-    return "Get Keywords"
+    keywords = Keywords()
+    return keywords.get_all()
 
 
 @router.post("/")
-def create_keywords():
-    return "Create Keywords"
-
-
-@router.put("/{keyword}")
-def update_keyword(keyword: str):
-    return "Update Keyword"
-
-
-@router.delete("/{keyword}")
-def delete_keyword(keyword: str):
-    return "Delete Keyword"
+def create_keywords(body: Prompt):
+    keywords = Keywords()
+    saved_keywords = keywords.create(prompt=body)
+    return saved_keywords
