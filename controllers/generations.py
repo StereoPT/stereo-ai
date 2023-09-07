@@ -12,6 +12,6 @@ class Generations:
     def generate(self, keyword_offset) -> None:
         sample_amount = self.keyword_amount + random.randint(0, keyword_offset)
         random_keywords = random.sample(self.keywords, sample_amount)
+        prompt = ", ".join(random_keywords)
 
-        print(", ".join(random_keywords))
-        return {"model": self.model, "keywords": random_keywords}
+        return {"model": self.model, "prompt": prompt, "keywords": random_keywords}
