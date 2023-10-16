@@ -4,6 +4,8 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 
+import { NotFound, ErrorHandler } from './middleware/index.js';
+
 const app = express();
 
 app.use(morgan('common'));
@@ -20,6 +22,8 @@ console.log('[StereoAI]');
 app.get('/', (req, res) => {
   res.json({ message: 'StereoAI' });
 });
+
+app.use(NotFound, ErrorHandler);
 
 const PORT = process.env.PORT || 1337;
 app.listen(PORT, () => {
