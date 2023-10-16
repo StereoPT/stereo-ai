@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 
+import { KeywordsRoutes } from './routes/index.js';
 import { NotFound, ErrorHandler } from './middleware/index.js';
 
 const app = express();
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
   res.json({ message: 'StereoAI' });
 });
 
+app.use('/api/keywords', KeywordsRoutes);
 app.use(NotFound, ErrorHandler);
 
 const PORT = process.env.PORT || 1337;
