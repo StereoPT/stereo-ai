@@ -1,10 +1,8 @@
 import random
-from utils.models import get_model
 
 
 class Generations:
     def __init__(self) -> None:
-        self.model = get_model()
         self.keyword_amount = 20
 
     def generate(self, keyword_offset) -> None:
@@ -12,4 +10,4 @@ class Generations:
         random_keywords = random.sample(self.keywords, sample_amount)
         prompt = ", ".join(random_keywords)
 
-        return {"model": self.model, "prompt": prompt, "keywords": random_keywords}
+        return {"prompt": prompt, "keywords": random_keywords}

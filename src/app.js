@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 
-import { KeywordsRoutes } from './routes/index.js';
+import { KeywordsRoutes, ModelRoutes } from './routes/index.js';
 import { NotFound, ErrorHandler } from './middleware/index.js';
 
 const app = express();
@@ -25,6 +25,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/keywords', KeywordsRoutes);
+app.use('/api/models', ModelRoutes);
 app.use(NotFound, ErrorHandler);
 
 const PORT = process.env.PORT || 1337;
