@@ -6,9 +6,6 @@ class Keywords:
     def __init__(self) -> None:
         self.repository = Repository("keywords")
 
-    def get_all(self):
-        return self.repository.get_all()
-
     def create(self, prompt: Prompt):
         prompt = Prompt(**prompt.model_dump())
         split_prompt = prompt.prompt.split(",")

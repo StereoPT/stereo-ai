@@ -6,7 +6,6 @@ from utils.models import get_model
 class Generations:
     def __init__(self) -> None:
         self.model = get_model()
-        self.keywords = Keywords().get_all()
         self.keyword_amount = 20
 
     def generate(self, keyword_offset) -> None:

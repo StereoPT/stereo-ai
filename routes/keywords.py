@@ -6,12 +6,6 @@ from fastapi import APIRouter
 router = APIRouter(prefix="/keywords", tags=["Keywords"])
 
 
-@router.get("/")
-def get_keywords():
-    keywords = Keywords()
-    return keywords.get_all()
-
-
 @router.post("/")
 def create_keywords(body: Prompt):
     keywords = Keywords()

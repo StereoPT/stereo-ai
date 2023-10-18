@@ -1,15 +1,10 @@
 import { Router } from 'express';
+import { findAll } from '../controllers/keywords.controller.js';
 
 const router = Router();
 
 // Returns all Keywords
-router.get('/', (req, res, next) => {
-  try {
-    res.json({ message: 'GET Keywords' });
-  } catch (error) {
-    next(error);
-  }
-});
+router.get('/', findAll);
 
 // Adds new Keywords
 router.post('/', (req, res, next) => {

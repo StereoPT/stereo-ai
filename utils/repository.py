@@ -26,10 +26,6 @@ class Repository:
         self._persist()
         return elems
 
-    def get_all(self) -> list[str]:
-        repository_key: list = self.items[self.key]
-        return list(repository_key)
-
     def _persist(self):
         with open(self.store, "w+") as store_file:
             store_file.write(json.dumps(self.items))
