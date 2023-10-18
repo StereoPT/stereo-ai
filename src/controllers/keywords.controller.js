@@ -1,12 +1,10 @@
-import db from '../db/db.js';
+import db, { keywords } from '../db/db.js';
 
 export const findAll = async (req, res, next) => {
   try {
-    const { keywords: dbKeywords } = db.data;
+    if (keywords.length <= 0) return res.json([]);
 
-    if (dbKeywords.length <= 0) return res.json([]);
-
-    return res.json(dbKeywords);
+    return res.json(keywords);
   } catch (error) {
     next(error);
   }
@@ -14,19 +12,13 @@ export const findAll = async (req, res, next) => {
 
 export const create = async (req, res, next) => {
   try {
-    const { keywords } = req.body;
-    const splitKeywords = keywords.split(',').map((k) => k.trim());
+    const { keywords: bodyKeywords } = req.body;
+    const splitKeywords = bodyKeywords.split(',').map((k) => k.trim());
 
     if (splitKeywords.length <= 0) return res.json([]);
 
     // Save without duplicates
-    const { keywords: dbKeywords } = db.data;
-    const newKeywords = [
-      ...dbKeywords,
-      ...splitKeywords.filter((k) => dbKeywords.includes(k)),
-    ];
-    dbKeywords = newKeywords;
-
+    keywords.push(...splitKeywords.filter((k) => !keywords.includes(k)));
     await db.write();
 
     return res.json(splitKeywords);

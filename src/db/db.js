@@ -8,3 +8,4 @@ await db.read();
 await db.write();
 
 export default db;
+export const keywords = db.data.keywords;
