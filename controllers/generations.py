@@ -1,5 +1,4 @@
 import random
-from controllers import Keywords
 from utils.models import get_model
 
 

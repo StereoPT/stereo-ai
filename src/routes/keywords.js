@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { findAll } from '../controllers/keywords.controller.js';
+import { findAll, create } from '../controllers/keywords.controller.js';
 
 const router = Router();
 
@@ -7,12 +7,6 @@ const router = Router();
 router.get('/', findAll);
 
 // Adds new Keywords
-router.post('/', (req, res, next) => {
-  try {
-    res.json({ message: 'POST Keywords' });
-  } catch (error) {
-    next(error);
-  }
-});
+router.post('/', create);
 
 export default router;
