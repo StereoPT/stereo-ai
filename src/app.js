@@ -11,6 +11,8 @@ import {
 } from './routes/index.js';
 import { NotFound, ErrorHandler } from './middleware/index.js';
 
+import './db/db.js';
+
 const app = express();
 
 app.use(morgan('common'));

@@ -1,7 +1,8 @@
-import db, { keywords } from '../db/db.js';
+import { Keyword } from '../models/keywords.model.js';
 
 export const findAll = async (req, res, next) => {
   try {
+    const keywords = await Keyword.findAll();
     if (keywords.length <= 0) return res.json([]);
 
     return res.json(keywords);
@@ -18,10 +19,11 @@ export const create = async (req, res, next) => {
     if (splitKeywords.length <= 0) return res.json([]);
 
     // Save without duplicates
-    keywords.push(...splitKeywords.filter((k) => !keywords.includes(k)));
-    await db.write();
+    const createdKeywords = await Keyword.bulkCreate(splitKeywords, {
+      ignoreDuplicates: true,
+    });
 
-    return res.json(splitKeywords);
+    return res.json(createdKeywords);
   } catch (error) {
     next(error);
   }

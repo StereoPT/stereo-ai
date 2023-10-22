@@ -1,12 +1,18 @@
-import { Low } from 'lowdb';
-import { JSONFile } from 'lowdb/node';
+import 'dotenv/config';
+import { Sequelize } from 'sequelize';
 
-const defaultData = { keywords: [], models: [] };
-const db = new Low(new JSONFile('db.json'), defaultData);
+export const sequelize = new Sequelize(
+  process.env.DATABASE_NAME,
+  process.env.DATABASE_USERNAME,
+  process.env.DATABASE_PASSWORD,
+  {
+    host: process.env.DATABASE_HOST,
+    dialect: process.env.DATABASE_DIALECT,
+  }
+);
 
-await db.read();
-await db.write();
-
-export default db;
-export const keywords = db.data.keywords;
-export const models = db.data.models;
+try {
+  await sequelize.authenticate();
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
+}
