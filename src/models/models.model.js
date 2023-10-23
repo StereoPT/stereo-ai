@@ -12,9 +12,11 @@ export const Model = sequelize.define(
     },
     name: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     version: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {

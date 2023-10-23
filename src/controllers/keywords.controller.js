@@ -13,8 +13,13 @@ export const findAll = async (req, res, next) => {
 
 export const create = async (req, res, next) => {
   try {
-    const { keywords: bodyKeywords } = req.body;
-    const splitKeywords = bodyKeywords.split(',').map((k) => k.trim());
+    const { keywords, type } = req.body;
+    const splitKeywords = keywords.split(',').map((k) => {
+      return {
+        keyword: k.trim(),
+        type,
+      };
+    });
 
     if (splitKeywords.length <= 0) return res.json([]);
 
