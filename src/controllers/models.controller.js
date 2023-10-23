@@ -26,11 +26,11 @@ export const findRandom = async (req, res, next) => {
 
 export const create = async (req, res, next) => {
   try {
-    const { model: modelName } = req.body;
+    const { model, version } = req.body;
 
-    if (!modelName) return res.json('');
+    if (!model) return res.json('');
 
-    const createdModel = await Model.create({ name: modelName });
+    const createdModel = await Model.create({ name: model, version });
 
     return res.json(createdModel);
   } catch (error) {
