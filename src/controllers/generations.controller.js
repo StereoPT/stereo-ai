@@ -7,16 +7,41 @@ export const generate = async (req, res, next) => {
     const models = await Model.findAll();
     const randomModel = random.choice(models);
 
-    const keywords = await Keyword.findAll();
-    const shuffledKeywords = keywords.sort(() => 0.5 - random.float());
-    const randomKeywords = shuffledKeywords.slice(0, 20);
+    const keywords = {
+      positive: await Keyword.findAll({
+        attributes: ['keyword'],
+        where: { type: 'positive' },
+      }),
+      negative: await Keyword.findAll({
+        attributes: ['keyword'],
+        where: { type: 'negative' },
+      }),
+    };
 
-    const prompt = randomKeywords.join(', ');
+    const shuffled = {
+      positive: keywords.positive
+        .sort(() => 0.5 - random.float())
+        .flatMap((k) => k.keyword),
+      negative: keywords.negative
+        .sort(() => 0.5 - random.float())
+        .flatMap((k) => k.keyword),
+    };
+
+    const randomKeywords = {
+      positive: shuffled.positive.slice(0, 20),
+      negative: shuffled.negative.slice(0, 20),
+    };
 
     return res.json({
-      model: randomModel,
-      prompt: prompt,
-      keywords: randomKeywords,
+      model: `${randomModel.get('name')} v${randomModel.get('version')}`,
+      prompt: {
+        positive: randomKeywords.positive.join(', '),
+        negative: randomKeywords.negative.join(', '),
+      },
+      keywords: {
+        positive: randomKeywords.positive,
+        negative: randomKeywords.negative,
+      },
     });
   } catch (error) {
     next(error);
