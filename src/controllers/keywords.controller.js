@@ -14,12 +14,15 @@ export const findAll = async (req, res, next) => {
 export const create = async (req, res, next) => {
   try {
     const { keywords, type } = req.body;
-    const splitKeywords = keywords.split(',').map((k) => {
-      return {
-        keyword: k.trim(),
+    const splitKeywords = keywords
+      .replace(/([()])/g, '')
+      .replace(/<\b(.*?)>/g, '')
+      .split(',')
+      .filter((k) => k.trim())
+      .map((k) => ({
+        keyword: k.trim().split(':').shift(),
         type,
-      };
-    });
+      }));
 
     if (splitKeywords.length <= 0) return res.json([]);
 
