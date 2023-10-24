@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../db/db.js';
+import { sequelize } from '../db';
 
-export const Model = sequelize.define(
-  'model',
+export const Keyword = sequelize.define(
+  'keyword',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -10,21 +10,21 @@ export const Model = sequelize.define(
       autoIncrement: true,
       allowNull: false,
     },
-    name: {
+    keyword: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    version: {
-      type: DataTypes.STRING,
+    type: {
+      type: DataTypes.ENUM('positive', 'negative'),
       allowNull: false,
     },
   },
   {
     indexes: [
       {
-        fields: ['name', 'version'],
+        fields: ['keyword', 'type'],
         unique: true,
       },
     ],
-  }
+  },
 );
