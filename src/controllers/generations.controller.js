@@ -1,34 +1,17 @@
 import ModelService from '../services/models.service.js';
-import { Keyword } from '../models/keywords.model.js';
-import random from 'random';
+import KeywordService from '../services/keyword.service.js';
 
 export const generate = async (req, res, next) => {
   try {
     const randomModel = await ModelService.findRandom();
 
-    const keywords = {
-      positive: await Keyword.findAll({
-        attributes: ['keyword'],
-        where: { type: 'positive' },
-      }),
-      negative: await Keyword.findAll({
-        attributes: ['keyword'],
-        where: { type: 'negative' },
-      }),
-    };
-
-    const shuffled = {
-      positive: keywords.positive
-        .sort(() => 0.5 - random.float())
-        .flatMap((k) => k.keyword),
-      negative: keywords.negative
-        .sort(() => 0.5 - random.float())
-        .flatMap((k) => k.keyword),
-    };
-
     const randomKeywords = {
-      positive: shuffled.positive.slice(0, 20),
-      negative: shuffled.negative.slice(0, 20),
+      positive: await KeywordService.findRandom(['keyword'], {
+        type: 'positive',
+      }),
+      negative: await KeywordService.findRandom(['keyword'], {
+        type: 'negative',
+      }),
     };
 
     return res.json({
