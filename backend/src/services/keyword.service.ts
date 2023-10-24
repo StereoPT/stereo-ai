@@ -1,21 +1,22 @@
-import { Keyword } from '../models/keywords.model.js';
+import { BulkCreateKeyword } from '../interfaces/keyword.interface';
+import { Keyword } from '../models/keywords.model';
 import random from 'random';
 
-const findAll = async (attributes) => {
+const findAll = async (attributes: []) => {
   const keywords = await Keyword.findAll({ attributes });
   if (keywords.length <= 0) return [];
 
   return keywords;
 };
 
-const findAllWhere = async (attributes, where) => {
+const findAllWhere = async (attributes: [], where: {}) => {
   const keywords = await Keyword.findAll({ attributes, where });
   if (keywords.length <= 0) return [];
 
   return keywords;
 };
 
-const findRandom = async (attributes, where, amount = 20) => {
+const findRandom = async (attributes: [], where: {}, amount = 20) => {
   const keywords = await findAllWhere(attributes, where);
   const shuffledKeywords = keywords
     .sort(() => 0.5 - random.float())
@@ -25,7 +26,7 @@ const findRandom = async (attributes, where, amount = 20) => {
   return randomKeywords;
 };
 
-const bulkCreate = async ({ keywords, type }) => {
+const bulkCreate = async ({ keywords, type }: BulkCreateKeyword) => {
   if (!keywords || !type) return;
 
   const splitKeywords = cleanKeywords(keywords, type);

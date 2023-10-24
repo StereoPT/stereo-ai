@@ -1,4 +1,5 @@
-import { Model } from '../models/models.model.js';
+import { Model } from '../models/models.model';
+import { CreateModel } from '../interfaces/model.interface';
 import random from 'random';
 
 const findAll = async () => {
@@ -13,7 +14,7 @@ const findRandom = async () => {
   return random.choice(models);
 };
 
-const create = async ({ name, version }) => {
+const create = async ({ name, version }: CreateModel) => {
   if (!name || !version) return;
 
   const createdModel = await Model.create({ name, version });
