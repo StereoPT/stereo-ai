@@ -28,7 +28,7 @@ const findRandom = async (attributes, where, amount = 20) => {
 const bulkCreate = async ({ keywords, type }) => {
   if (!keywords || !type) return;
 
-  const splitKeywords = cleanKeywords(keywords);
+  const splitKeywords = cleanKeywords(keywords, type);
   if (splitKeywords.length <= 0) return [];
 
   // Save without duplicates
@@ -39,7 +39,7 @@ const bulkCreate = async ({ keywords, type }) => {
   return createdKeywords;
 };
 
-const cleanKeywords = (keywords) => {
+const cleanKeywords = (keywords, type) => {
   if (!keywords) return;
 
   const REGEX_REMOVE_PARENTHESIS = /([()])/g;
