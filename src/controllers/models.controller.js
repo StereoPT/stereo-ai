@@ -1,11 +1,8 @@
-import { Model } from '../models/models.model.js';
-import random from 'random';
+import ModelService from '../services/models.service.js';
 
 export const findAll = async (req, res, next) => {
   try {
-    const models = await Model.findAll();
-    if (models.length <= 0) return res.json([]);
-
+    const models = await ModelService.findAll();
     return res.json(models);
   } catch (error) {
     next(error);
@@ -14,10 +11,7 @@ export const findAll = async (req, res, next) => {
 
 export const findRandom = async (req, res, next) => {
   try {
-    const models = await Model.findAll();
-    if (models.length <= 0) return res.json('');
-    const randomModel = random.choice(models);
-
+    const randomModel = await ModelService.findRandom();
     return res.json(randomModel);
   } catch (error) {
     next(error);
@@ -28,10 +22,7 @@ export const create = async (req, res, next) => {
   try {
     const { model, version } = req.body;
 
-    if (!model) return res.json('');
-
-    const createdModel = await Model.create({ name: model, version });
-
+    const createdModel = await ModelService.create({ name: model, version });
     return res.json(createdModel);
   } catch (error) {
     next(error);
