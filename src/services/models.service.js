@@ -1,5 +1,5 @@
-import random from 'random';
 import { Model } from '../models/models.model.js';
+import random from 'random';
 
 const findAll = async () => {
   const models = await Model.findAll();

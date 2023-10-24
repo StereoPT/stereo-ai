@@ -1,10 +1,8 @@
-import { Keyword } from '../models/keywords.model.js';
+import KeywordService from '../services/keyword.service.js';
 
 export const findAll = async (req, res, next) => {
   try {
-    const keywords = await Keyword.findAll();
-    if (keywords.length <= 0) return res.json([]);
-
+    const keywords = await KeywordService.findAll();
     return res.json(keywords);
   } catch (error) {
     next(error);
@@ -14,23 +12,8 @@ export const findAll = async (req, res, next) => {
 export const create = async (req, res, next) => {
   try {
     const { keywords, type } = req.body;
-    const splitKeywords = keywords
-      .replace(/([()])/g, '')
-      .replace(/<\b(.*?)>/g, '')
-      .split(',')
-      .filter((k) => k.trim())
-      .map((k) => ({
-        keyword: k.trim().split(':').shift(),
-        type,
-      }));
 
-    if (splitKeywords.length <= 0) return res.json([]);
-
-    // Save without duplicates
-    const createdKeywords = await Keyword.bulkCreate(splitKeywords, {
-      ignoreDuplicates: true,
-    });
-
+    const createdKeywords = await KeywordService.bulkCreate({ keywords, type });
     return res.json(createdKeywords);
   } catch (error) {
     next(error);

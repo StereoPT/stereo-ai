@@ -1,11 +1,10 @@
-import { Model } from '../models/models.model.js';
+import ModelService from '../services/models.service.js';
 import { Keyword } from '../models/keywords.model.js';
 import random from 'random';
 
 export const generate = async (req, res, next) => {
   try {
-    const models = await Model.findAll();
-    const randomModel = random.choice(models);
+    const randomModel = await ModelService.findRandom();
 
     const keywords = {
       positive: await Keyword.findAll({
