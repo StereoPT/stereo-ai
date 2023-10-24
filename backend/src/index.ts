@@ -12,7 +12,7 @@ import MessageResponse from './interfaces/MessageResponse';
 // } from './routes/index.js';
 import { NotFound, ErrorHandler } from './middlewares';
 
-// import './db/db.js';
+import './db';
 
 const app = express();
 
