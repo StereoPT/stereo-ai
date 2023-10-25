@@ -1,9 +1,5 @@
 import { Router } from 'express';
-import {
-  findAll,
-  findRandom,
-  create,
-} from '../controllers/models.controller.js';
+import { findAll, findRandom, create } from '../controllers/models.controller';
 
 const router = Router();
 

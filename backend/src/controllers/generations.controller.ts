@@ -1,5 +1,5 @@
-import ModelService from '../services/models.service.js';
-import KeywordService from '../services/keyword.service.js';
+import ModelService from '../services/models.service';
+import KeywordService from '../services/keyword.service';
 import { NextFunction, Request, Response } from 'express';
 
 export const generate = async (

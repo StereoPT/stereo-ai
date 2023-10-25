@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import ModelService from '../services/models.service.js';
+import ModelService from '../services/models.service';
 
 export const findAll = async (
   req: Request,

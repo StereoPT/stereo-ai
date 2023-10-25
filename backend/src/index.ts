@@ -5,11 +5,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import MessageResponse from './interfaces/MessageResponse';
 
-// import {
-//   KeywordsRoutes,
-//   ModelRoutes,
-//   GenerationRoutes,
-// } from './routes/index.js';
+import { KeywordsRoutes, ModelRoutes, GenerationRoutes } from './routes';
 import { NotFound, ErrorHandler } from './middlewares';
 
 import './db';
@@ -31,9 +27,9 @@ app.get<{}, MessageResponse>('/', (req, res) => {
   res.json({ message: 'StereoAI' });
 });
 
-// app.use('/api/keywords', KeywordsRoutes);
-// app.use('/api/models', ModelRoutes);
-// app.use('/api/generations', GenerationRoutes);
+app.use('/api/keywords', KeywordsRoutes);
+app.use('/api/models', ModelRoutes);
+app.use('/api/generations', GenerationRoutes);
 app.use(NotFound, ErrorHandler);
 
 const port = process.env.PORT || 1337;

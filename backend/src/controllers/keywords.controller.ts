@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import KeywordService from '../services/keyword.service.js';
+import KeywordService from '../services/keyword.service';
 
 export const findAll = async (
   req: Request,
