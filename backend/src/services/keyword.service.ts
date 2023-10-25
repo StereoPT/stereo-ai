@@ -1,6 +1,7 @@
 import { BulkCreateKeyword } from '../interfaces/keyword.interface';
 import { Keyword } from '../models/keywords.model';
 import random from 'random';
+import { cleanKeywords } from '../utils/keywords';
 
 const findAll = async (attributes: []) => {
   const keywords = await Keyword.findAll({ attributes });
@@ -17,10 +18,10 @@ const findAllWhere = async (attributes: [], where: {}) => {
 };
 
 const findRandom = async (attributes: [], where: {}, amount = 20) => {
-  const keywords = await findAllWhere(attributes, where);
+  const keywords = (await findAllWhere(attributes, where)) as any;
   const shuffledKeywords = keywords
     .sort(() => 0.5 - random.float())
-    .flatMap((k) => k.keyword);
+    .flatMap((k: any) => k.keyword);
   const randomKeywords = shuffledKeywords.slice(0, amount);
 
   return randomKeywords;
@@ -29,7 +30,7 @@ const findRandom = async (attributes: [], where: {}, amount = 20) => {
 const bulkCreate = async ({ keywords, type }: BulkCreateKeyword) => {
   if (!keywords || !type) return;
 
-  const splitKeywords = cleanKeywords(keywords, type);
+  const splitKeywords = cleanKeywords(keywords, type) as [];
   if (splitKeywords.length <= 0) return [];
 
   // Save without duplicates
@@ -38,25 +39,6 @@ const bulkCreate = async ({ keywords, type }: BulkCreateKeyword) => {
   });
 
   return createdKeywords;
-};
-
-const cleanKeywords = (keywords, type) => {
-  if (!keywords) return;
-
-  const REGEX_REMOVE_PARENTHESIS = /([()])/g;
-  const REGEX_REMOVE_TAGS = /<\b(.*?)>/g;
-
-  const cleanKeywords = keywords
-    .replace(REGEX_REMOVE_PARENTHESIS, '')
-    .replace(REGEX_REMOVE_TAGS, '')
-    .split(',')
-    .filter((k) => k.trim())
-    .map((k) => ({
-      keyword: k.trim().split(':').shift(),
-      type,
-    }));
-
-  return cleanKeywords;
 };
 
 export default {
