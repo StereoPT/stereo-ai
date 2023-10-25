@@ -1,6 +1,11 @@
+import { NextFunction, Request, Response } from 'express';
 import ModelService from '../services/models.service.js';
 
-export const findAll = async (req, res, next) => {
+export const findAll = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const models = await ModelService.findAll();
     return res.json(models);
@@ -9,7 +14,11 @@ export const findAll = async (req, res, next) => {
   }
 };
 
-export const findRandom = async (req, res, next) => {
+export const findRandom = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const randomModel = await ModelService.findRandom();
     return res.json(randomModel);
@@ -18,7 +27,11 @@ export const findRandom = async (req, res, next) => {
   }
 };
 
-export const create = async (req, res, next) => {
+export const create = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const { model, version } = req.body;
 

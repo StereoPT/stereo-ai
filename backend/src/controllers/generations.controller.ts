@@ -1,7 +1,12 @@
 import ModelService from '../services/models.service.js';
 import KeywordService from '../services/keyword.service.js';
+import { NextFunction, Request, Response } from 'express';
 
-export const generate = async (req, res, next) => {
+export const generate = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const randomModel = await ModelService.findRandom();
 

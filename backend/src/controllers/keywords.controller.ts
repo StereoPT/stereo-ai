@@ -1,15 +1,24 @@
+import { NextFunction, Request, Response } from 'express';
 import KeywordService from '../services/keyword.service.js';
 
-export const findAll = async (req, res, next) => {
+export const findAll = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    const keywords = await KeywordService.findAll();
+    const keywords = await KeywordService.findAll([]);
     return res.json(keywords);
   } catch (error) {
     next(error);
   }
 };
 
-export const create = async (req, res, next) => {
+export const create = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const { keywords, type } = req.body;
 
