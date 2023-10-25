@@ -3,7 +3,6 @@ import express from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
-import MessageResponse from './interfaces/MessageResponse';
 
 import { KeywordsRoutes, ModelRoutes, GenerationRoutes } from './routes';
 import { NotFound, ErrorHandler } from './middlewares';
