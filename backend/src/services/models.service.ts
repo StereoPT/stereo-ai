@@ -1,6 +1,6 @@
 import { Model } from '../models/models.model';
 import { CreateModel } from '../interfaces/model.interface';
-import random from 'random';
+import { Random } from 'random-js';
 
 const findAll = async () => {
   const models = await Model.findAll();
@@ -11,7 +11,8 @@ const findAll = async () => {
 
 const findRandom = async () => {
   const models = await findAll();
-  return random.choice(models);
+  const randomModel = new Random().pick(models);
+  return randomModel;
 };
 
 const create = async ({ name, version }: CreateModel) => {

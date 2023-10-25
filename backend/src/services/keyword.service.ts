@@ -1,6 +1,6 @@
 import { BulkCreateKeyword } from '../interfaces/keyword.interface';
 import { Keyword } from '../models/keywords.model';
-import random from 'random';
+import { Random } from 'random-js';
 import { cleanKeywords } from '../utils/keywords';
 
 const findAll = async (attributes: []) => {
@@ -17,10 +17,10 @@ const findAllWhere = async (attributes: [], where: {}) => {
   return keywords;
 };
 
-const findRandom = async (attributes: [], where: {}, amount = 20) => {
+const findRandom = async (attributes: any, where: {}, amount = 20) => {
   const keywords = (await findAllWhere(attributes, where)) as any;
-  const shuffledKeywords = keywords
-    .sort(() => 0.5 - random.float())
+  const shuffledKeywords = new Random()
+    .shuffle(keywords)
     .flatMap((k: any) => k.keyword);
   const randomKeywords = shuffledKeywords.slice(0, amount);
 

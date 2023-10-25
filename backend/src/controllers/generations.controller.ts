@@ -8,7 +8,7 @@ export const generate = async (
   next: NextFunction,
 ) => {
   try {
-    const randomModel = await ModelService.findRandom();
+    const randomModel = (await ModelService.findRandom()) as any;
 
     const randomKeywords = {
       positive: await KeywordService.findRandom(['keyword'], {
