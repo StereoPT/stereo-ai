@@ -1,8 +1,33 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model as SeqModel, Optional } from 'sequelize';
 import { sequelize } from '../db';
 
-export const Keyword = sequelize.define(
-  'keyword',
+interface KeywordAttributes {
+  id: number;
+  keyword: string;
+  type: 'positive' | 'negative';
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface KeywordInput extends Optional<KeywordAttributes, 'id'> {}
+export interface KeywordOutput extends Required<KeywordAttributes> {}
+
+export class Keyword
+  extends SeqModel<KeywordAttributes, KeywordInput>
+  implements KeywordAttributes
+{
+  public id!: number;
+
+  public keyword!: string;
+
+  public type!: 'positive' | 'negative';
+
+  public readonly createdAt!: Date;
+
+  public readonly updatedAt!: Date;
+}
+
+Keyword.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -20,6 +45,8 @@ export const Keyword = sequelize.define(
     },
   },
   {
+    timestamps: true,
+    sequelize,
     indexes: [
       {
         fields: ['keyword', 'type'],
