@@ -7,9 +7,10 @@ import cors from 'cors';
 import { KeywordsRoutes, ModelRoutes, GenerationRoutes } from './routes';
 import { NotFound, ErrorHandler } from './middlewares';
 
-import './db';
+import { initializeDatabase } from './db/connection';
 
 const app = express();
+initializeDatabase();
 
 app.use(morgan('common'));
 app.use(helmet());

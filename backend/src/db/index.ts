@@ -11,14 +11,3 @@ export const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
   host: DB_HOST,
   dialect: DB_DIALECT,
 });
-
-const init = async () => {
-  try {
-    await sequelize.authenticate();
-    await sequelize.sync({ force: true });
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
-};
-
-init();
