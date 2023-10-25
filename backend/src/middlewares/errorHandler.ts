@@ -1,5 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
-import ErrorResponse from '../interfaces/ErrorResponse';
+
+interface ErrorResponse {
+  message: string;
+  stack?: string;
+}
 
 const ErrorHandler = (
   error: Error,
