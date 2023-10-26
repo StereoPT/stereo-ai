@@ -1,10 +1,12 @@
 import { DataTypes, Model as SeqModel, Optional } from 'sequelize';
 import { sequelize } from '../db';
 
+export type KeywordType = 'positive' | 'negative';
+
 interface KeywordAttributes {
   id: number;
   keyword: string;
-  type: 'positive' | 'negative';
+  type: KeywordType;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -12,19 +14,12 @@ interface KeywordAttributes {
 export interface KeywordInput extends Optional<KeywordAttributes, 'id'> {}
 export interface KeywordOutput extends Required<KeywordAttributes> {}
 
-export class Keyword
-  extends SeqModel<KeywordAttributes, KeywordInput>
-  implements KeywordAttributes
-{
-  public id!: number;
-
-  public keyword!: string;
-
-  public type!: 'positive' | 'negative';
-
-  public readonly createdAt!: Date;
-
-  public readonly updatedAt!: Date;
+export class Keyword extends SeqModel<KeywordAttributes, KeywordInput> {
+  declare id: number;
+  declare keyword: string;
+  declare type: KeywordType;
+  declare createdAt?: Date;
+  declare updatedAt?: Date;
 }
 
 Keyword.init(

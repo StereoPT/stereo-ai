@@ -12,19 +12,12 @@ interface ModelAttributes {
 export interface ModelInput extends Optional<ModelAttributes, 'id'> {}
 export interface ModelOutput extends Required<ModelAttributes> {}
 
-export class Model
-  extends SeqModel<ModelAttributes, ModelInput>
-  implements ModelAttributes
-{
-  public id!: number;
-
-  public name!: string;
-
-  public version!: string;
-
-  public readonly createdAt!: Date;
-
-  public readonly updatedAt!: Date;
+export class Model extends SeqModel<ModelAttributes, ModelInput> {
+  declare id: number;
+  declare name: string;
+  declare version: string;
+  declare createdAt?: Date;
+  declare updatedAt?: Date;
 }
 
 Model.init(
