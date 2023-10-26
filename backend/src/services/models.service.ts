@@ -10,6 +10,8 @@ const findAll = async (): Promise<Model[]> => {
 
 const findRandom = async (): Promise<Model> => {
   const models = await findAll();
+  if (models.length <= 0) throw new Error('No Models Found!');
+
   const randomModel = new Random().pick(models);
 
   return randomModel;
