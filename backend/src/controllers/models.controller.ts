@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
+
 import ModelService from '../services/models.service';
+import { ModelInput } from '../models/models.model';
 
 export const findAll = async (
   req: Request,
@@ -33,9 +35,9 @@ export const create = async (
   next: NextFunction,
 ) => {
   try {
-    const { model, version } = req.body;
+    const { name, version } = req.body as ModelInput;
 
-    const createdModel = await ModelService.create({ name: model, version });
+    const createdModel = await ModelService.create({ name, version });
     return res.json(createdModel);
   } catch (error) {
     next(error);

@@ -1,6 +1,6 @@
+import { NextFunction, Request, Response } from 'express';
 import ModelService from '../services/models.service';
 import KeywordService from '../services/keyword.service';
-import { NextFunction, Request, Response } from 'express';
 
 export const generate = async (
   req: Request,
@@ -11,11 +11,13 @@ export const generate = async (
     const randomModel = (await ModelService.findRandom()) as any;
 
     const randomKeywords = {
-      positive: await KeywordService.findRandom(['keyword'], {
-        type: 'positive',
+      positive: await KeywordService.findRandom({
+        attributes: ['keyword'],
+        where: { type: 'positive' },
       }),
-      negative: await KeywordService.findRandom(['keyword'], {
-        type: 'negative',
+      negative: await KeywordService.findRandom({
+        attributes: ['keyword'],
+        where: { type: 'negative' },
       }),
     };
 
