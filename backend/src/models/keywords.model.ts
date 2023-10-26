@@ -1,4 +1,4 @@
-import { DataTypes, Model as SeqModel, Optional } from 'sequelize';
+import { DataTypes, Model as SeqModel, Optional, FindOptions } from 'sequelize';
 import { sequelize } from '../db';
 
 export type KeywordType = 'positive' | 'negative';
@@ -12,7 +12,12 @@ interface KeywordAttributes {
 }
 
 export interface KeywordInput extends Optional<KeywordAttributes, 'id'> {}
+export interface BulkKeywordInput {
+  keywords: string;
+  type: KeywordType;
+}
 export interface KeywordOutput extends Required<KeywordAttributes> {}
+export interface KeywordOptions extends FindOptions<KeywordAttributes> {}
 
 export class Keyword extends SeqModel<KeywordAttributes, KeywordInput> {
   declare id: number;

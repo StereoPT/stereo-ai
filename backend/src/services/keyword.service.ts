@@ -1,24 +1,33 @@
-import { BulkCreateKeyword } from '../interfaces/keyword.interface';
-import { Keyword } from '../models/keywords.model';
+import {
+  BulkKeywordInput,
+  Keyword,
+  KeywordOptions,
+} from '../models/keywords.model';
 import { Random } from 'random-js';
 import { cleanKeywords } from '../utils/keywords';
 
-const findAll = async (attributes: []) => {
+const findAll = async ({ attributes }: KeywordOptions): Promise<Keyword[]> => {
   const keywords = await Keyword.findAll({ attributes });
   if (keywords.length <= 0) return [];
 
   return keywords;
 };
 
-const findAllWhere = async (attributes: [], where: {}) => {
+const findAllWhere = async ({
+  attributes,
+  where,
+}: KeywordOptions): Promise<Keyword[]> => {
   const keywords = await Keyword.findAll({ attributes, where });
   if (keywords.length <= 0) return [];
 
   return keywords;
 };
 
-const findRandom = async (attributes: any, where: {}, amount = 20) => {
-  const keywords = (await findAllWhere(attributes, where)) as any;
+const findRandom = async (
+  { attributes, where }: KeywordOptions,
+  amount = 20,
+): Promise<Keyword[]> => {
+  const keywords = await findAllWhere({ attributes, where });
   const shuffledKeywords = new Random()
     .shuffle(keywords)
     .flatMap((k: any) => k.keyword);
@@ -27,11 +36,12 @@ const findRandom = async (attributes: any, where: {}, amount = 20) => {
   return randomKeywords;
 };
 
-const bulkCreate = async ({ keywords, type }: BulkCreateKeyword) => {
-  if (!keywords || !type) return;
-
-  const splitKeywords = cleanKeywords(keywords, type) as [];
-  if (splitKeywords.length <= 0) return [];
+const bulkCreate = async ({
+  keywords,
+  type,
+}: BulkKeywordInput): Promise<Keyword[]> => {
+  const splitKeywords = cleanKeywords({ keywords, type });
+  if (splitKeywords.length <= 0) throw new Error('No Keywords Found!');
 
   // Save without duplicates
   const createdKeywords = await Keyword.bulkCreate(splitKeywords, {
