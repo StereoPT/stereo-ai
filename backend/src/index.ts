@@ -1,17 +1,14 @@
-import express, { json } from 'express';
 import 'dotenv/config';
+import express from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 
-import {
-  KeywordsRoutes,
-  ModelRoutes,
-  GenerationRoutes,
-} from './routes/index.js';
-import { NotFound, ErrorHandler } from './middleware/index.js';
+import { KeywordsRoutes, ModelRoutes, GenerationRoutes } from './routes';
+import { NotFound, ErrorHandler } from './middlewares';
 
-import './db/db.js';
+import { initializeDatabase } from './db/init';
+initializeDatabase();
 
 const app = express();
 
@@ -20,13 +17,13 @@ app.use(helmet());
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN || '*',
-  })
+  }),
 );
-app.use(json());
+app.use(express.json());
 
 console.log('[StereoAI]');
 
-app.get('/', (req, res) => {
+app.get<{}, { message: string }>('/', (req, res) => {
   res.json({ message: 'StereoAI' });
 });
 
@@ -35,7 +32,7 @@ app.use('/api/models', ModelRoutes);
 app.use('/api/generations', GenerationRoutes);
 app.use(NotFound, ErrorHandler);
 
-const PORT = process.env.PORT || 1337;
-app.listen(PORT, () => {
-  console.log(`Listening at: http://localhost:${PORT}/`);
+const port = process.env.PORT || 1337;
+app.listen(port, () => {
+  console.log(`Listening: http://localhost:${port}`);
 });

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { findAll, create } from '../controllers/keywords.controller.js';
+import { findAll, create } from '../controllers/keywords.controller';
 
 const router = Router();
 
