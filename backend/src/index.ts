@@ -4,7 +4,12 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 
-import { KeywordsRoutes, ModelRoutes, GenerationRoutes } from './routes';
+import {
+  KeywordsRoutes,
+  ModelRoutes,
+  GenerationRoutes,
+  PromptRoutes,
+} from './routes';
 import { NotFound, ErrorHandler } from './middlewares';
 
 import { initializeDatabase } from './db/init';
@@ -30,6 +35,7 @@ app.get<{}, { message: string }>('/', (req, res) => {
 app.use('/api/keywords', KeywordsRoutes);
 app.use('/api/models', ModelRoutes);
 app.use('/api/generations', GenerationRoutes);
+app.use('/api/prompts', PromptRoutes);
 app.use(NotFound, ErrorHandler);
 
 const port = process.env.PORT || 1337;
