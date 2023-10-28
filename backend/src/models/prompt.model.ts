@@ -31,7 +31,7 @@ Prompt.init(
       allowNull: false,
     },
     prompt: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     type: {
