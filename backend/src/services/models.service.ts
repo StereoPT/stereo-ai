@@ -17,8 +17,12 @@ const findRandom = async (): Promise<Model> => {
   return randomModel;
 };
 
-const create = async ({ name, version }: ModelInput): Promise<Model> => {
-  const createdModel = await Model.create({ name, version });
+const create = async ({
+  name,
+  version,
+  modelId,
+}: ModelInput): Promise<Model> => {
+  const createdModel = await Model.create({ name, version, modelId });
 
   return createdModel;
 };

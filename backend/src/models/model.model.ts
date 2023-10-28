@@ -4,6 +4,7 @@ import { sequelize } from '../db';
 interface ModelAttributes {
   name: string;
   version: string;
+  modelId: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -14,6 +15,7 @@ export interface ModelOutput extends Required<ModelAttributes> {}
 export class Model extends SeqModel<ModelAttributes, ModelInput> {
   declare name: string;
   declare version: string;
+  declare modelId: number;
   declare createdAt?: Date;
   declare updatedAt?: Date;
 }
@@ -28,6 +30,10 @@ Model.init(
     version: {
       type: DataTypes.STRING,
       primaryKey: true,
+      allowNull: false,
+    },
+    modelId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },

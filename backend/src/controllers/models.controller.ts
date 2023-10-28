@@ -35,9 +35,9 @@ export const create = async (
   next: NextFunction,
 ) => {
   try {
-    const { name, version } = req.body as ModelInput;
+    const { name, version, modelId } = req.body as ModelInput;
 
-    const createdModel = await ModelService.create({ name, version });
+    const createdModel = await ModelService.create({ name, version, modelId });
     return res.json(createdModel);
   } catch (error) {
     next(error);
