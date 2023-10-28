@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 import ModelService from '../services/models.service';
-import { ModelInput } from '../models/models.model';
+import { ModelInput } from '../models/models.models';
 
 export const findAll = async (
   req: Request,

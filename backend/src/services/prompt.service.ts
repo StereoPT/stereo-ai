@@ -1,4 +1,4 @@
-import { Prompt, PromptInput } from '../models/prompt.model';
+import { Prompt, PromptInput } from '../models/prompts.models';
 import KeywordService from './keyword.service';
 import { splitPrompt } from '../utils/prompt';
 

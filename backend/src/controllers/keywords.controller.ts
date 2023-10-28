@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import KeywordService from '../services/keyword.service';
-import { KeywordInput } from '../models/keywords.model';
+import { KeywordInput } from '../models/keywords.models';
 
 export const findAll = async (
   req: Request,

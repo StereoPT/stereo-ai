@@ -1,5 +1,5 @@
-import { KeywordInput } from '../models/keywords.model';
-import { PromptInput } from '../models/prompt.model';
+import { KeywordInput } from '../models/keywords.models';
+import { PromptInput } from '../models/prompts.models';
 
 export const splitPrompt = ({ prompt, type }: PromptInput): KeywordInput[] => {
   const REGEX_REMOVE_PARENTHESIS = /([()])/g;

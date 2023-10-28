@@ -2,7 +2,7 @@ import {
   Keyword,
   KeywordInput,
   KeywordOptions,
-} from '../models/keywords.model';
+} from '../models/keywords.models';
 import { Random } from 'random-js';
 
 const findAll = async ({ attributes }: KeywordOptions): Promise<Keyword[]> => {
