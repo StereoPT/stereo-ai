@@ -1,10 +1,9 @@
 import {
-  BulkKeywordInput,
   Keyword,
+  KeywordInput,
   KeywordOptions,
 } from '../models/keywords.model';
 import { Random } from 'random-js';
-import { cleanKeywords } from '../utils/keywords';
 
 const findAll = async ({ attributes }: KeywordOptions): Promise<Keyword[]> => {
   const keywords = await Keyword.findAll({ attributes });
@@ -36,15 +35,8 @@ const findRandom = async (
   return randomKeywords;
 };
 
-const bulkCreate = async ({
-  keywords,
-  type,
-}: BulkKeywordInput): Promise<Keyword[]> => {
-  const splitKeywords = cleanKeywords({ keywords, type });
-  if (splitKeywords.length <= 0) throw new Error('No Keywords Found!');
-
-  // Save without duplicates
-  const createdKeywords = await Keyword.bulkCreate(splitKeywords, {
+const bulkCreate = async (keywords: KeywordInput[]): Promise<Keyword[]> => {
+  const createdKeywords = await Keyword.bulkCreate(keywords, {
     ignoreDuplicates: true,
   });
 

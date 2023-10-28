@@ -1,13 +1,11 @@
-import { BulkKeywordInput, KeywordInput } from '../models/keywords.model';
+import { KeywordInput } from '../models/keywords.model';
+import { PromptInput } from '../models/prompt.model';
 
-export const cleanKeywords = ({
-  keywords,
-  type,
-}: BulkKeywordInput): KeywordInput[] => {
+export const splitPrompt = ({ prompt, type }: PromptInput): KeywordInput[] => {
   const REGEX_REMOVE_PARENTHESIS = /([()])/g;
   const REGEX_REMOVE_TAGS = /<\b(.*?)>/g;
 
-  const cKeywords = keywords
+  const keywords = prompt
     .replace(REGEX_REMOVE_PARENTHESIS, '')
     .replace(REGEX_REMOVE_TAGS, '')
     .split(',')
@@ -17,5 +15,5 @@ export const cleanKeywords = ({
       type,
     }));
 
-  return cKeywords;
+  return keywords;
 };

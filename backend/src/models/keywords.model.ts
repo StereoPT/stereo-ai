@@ -12,10 +12,6 @@ interface KeywordAttributes {
 }
 
 export interface KeywordInput extends Optional<KeywordAttributes, 'id'> {}
-export interface BulkKeywordInput {
-  keywords: string;
-  type: KeywordType;
-}
 export interface KeywordOutput extends Required<KeywordAttributes> {}
 export interface KeywordOptions extends FindOptions<KeywordAttributes> {}
 
