@@ -1,12 +1,19 @@
 import { Router } from 'express';
-import { findAll, create } from '../controllers/keywords.controller';
+import {
+  findAll,
+  create,
+  bulkCreate,
+} from '../controllers/keywords.controller';
 
 const router = Router();
 
 // Returns all Keywords
 router.get('/', findAll);
 
-// Adds new Keywords
+// Add new Keyword
 router.post('/', create);
+
+// Adds Bulk Keywords
+router.post('/bulk', bulkCreate);
 
 export default router;

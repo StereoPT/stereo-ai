@@ -35,6 +35,12 @@ const findRandom = async (
   return randomKeywords;
 };
 
+const create = async (keyword: KeywordInput): Promise<Keyword> => {
+  const createdKeyword = await Keyword.create(keyword);
+
+  return createdKeyword;
+};
+
 const bulkCreate = async (keywords: KeywordInput[]): Promise<Keyword[]> => {
   const createdKeywords = await Keyword.bulkCreate(keywords, {
     ignoreDuplicates: true,
@@ -47,5 +53,6 @@ export default {
   findAll,
   findAllWhere,
   findRandom,
+  create,
   bulkCreate,
 };
