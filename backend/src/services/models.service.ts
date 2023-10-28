@@ -1,4 +1,4 @@
-import { Model, ModelInput } from '../models/models.models';
+import { Model, ModelInput } from '../models/model.model';
 import { Random } from 'random-js';
 
 const findAll = async (): Promise<Model[]> => {

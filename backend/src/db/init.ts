@@ -1,6 +1,6 @@
-import { Keyword } from '../models/keywords.models';
-import { Model } from '../models/models.models';
-import { Prompt } from '../models/prompts.models';
+import { Keyword } from '../models/keyword.model';
+import { Model } from '../models/model.model';
+import { Prompt } from '../models/prompt.model';
 
 export const initializeDatabase = () =>
   Promise.all([

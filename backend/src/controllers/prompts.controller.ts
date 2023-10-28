@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import PromptService from '../services/prompt.service';
-import { PromptInput } from '../models/prompts.models';
+import PromptService from '../services/prompts.service';
+import { PromptInput } from '../models/prompt.model';
 
 export const findAll = async (
   req: Request,

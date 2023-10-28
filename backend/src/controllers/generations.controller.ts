@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import ModelService from '../services/models.service';
-import KeywordService from '../services/keyword.service';
+import KeywordService from '../services/keywords.service';
 
 export const generate = async (
   req: Request,

@@ -1,5 +1,5 @@
-import { Prompt, PromptInput } from '../models/prompts.models';
-import KeywordService from './keyword.service';
+import { Prompt, PromptInput } from '../models/prompt.model';
+import KeywordService from './keywords.service';
 import { splitPrompt } from '../utils/prompt';
 
 const findAll = async (): Promise<Prompt[]> => {
