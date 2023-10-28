@@ -9,7 +9,7 @@ export const findAll = async (
   next: NextFunction,
 ) => {
   try {
-    const models = await ModelService.findAll();
+    const models = await ModelService.findAll({});
     return res.json(models);
   } catch (error) {
     next(error);
@@ -22,7 +22,7 @@ export const findRandom = async (
   next: NextFunction,
 ) => {
   try {
-    const randomModel = await ModelService.findRandom();
+    const randomModel = await ModelService.findRandom({});
     return res.json(randomModel);
   } catch (error) {
     next(error);

@@ -1,4 +1,4 @@
-import { DataTypes, Model as SeqModel } from 'sequelize';
+import { DataTypes, FindOptions, Model as SeqModel } from 'sequelize';
 import { sequelize } from '../db';
 
 interface ModelAttributes {
@@ -11,6 +11,7 @@ interface ModelAttributes {
 
 export interface ModelInput extends ModelAttributes {}
 export interface ModelOutput extends Required<ModelAttributes> {}
+export interface ModelOptions extends FindOptions<ModelAttributes> {}
 
 export class Model extends SeqModel<ModelAttributes, ModelInput> {
   declare name: string;

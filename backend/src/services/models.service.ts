@@ -1,15 +1,15 @@
-import { Model, ModelInput } from '../models/model.model';
+import { Model, ModelInput, ModelOptions } from '../models/model.model';
 import { Random } from 'random-js';
 
-const findAll = async (): Promise<Model[]> => {
-  const models = await Model.findAll();
+const findAll = async ({ attributes }: ModelOptions): Promise<Model[]> => {
+  const models = await Model.findAll({ attributes });
   if (models.length <= 0) return [];
 
   return models;
 };
 
-const findRandom = async (): Promise<Model> => {
-  const models = await findAll();
+const findRandom = async ({ attributes }: ModelOptions): Promise<Model> => {
+  const models = await findAll({ attributes });
   if (models.length <= 0) throw new Error('No Models Found!');
 
   const randomModel = new Random().pick(models);
