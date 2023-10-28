@@ -9,6 +9,7 @@ import {
   ModelRoutes,
   GenerationRoutes,
   PromptRoutes,
+  CivitaiRoutes,
 } from './routes';
 import { NotFound, ErrorHandler } from './middlewares';
 
@@ -36,6 +37,7 @@ app.use('/api/keywords', KeywordsRoutes);
 app.use('/api/models', ModelRoutes);
 app.use('/api/generations', GenerationRoutes);
 app.use('/api/prompts', PromptRoutes);
+app.use('/api/civitai', CivitaiRoutes);
 app.use(NotFound, ErrorHandler);
 
 const port = process.env.PORT || 1337;
