@@ -1,25 +1,24 @@
-import { Prompt, PromptInput } from '../models/prompt.model';
+import { Prompt, PromptInput, PromptOptions } from '../models/prompt.model';
 import KeywordService from './keywords.service';
 import { splitPrompt } from '../utils/prompt';
 
-const findAll = async (): Promise<Prompt[]> => {
-  const prompts = await Prompt.findAll();
+const findAll = async (options?: PromptOptions): Promise<Prompt[]> => {
+  const prompts = await Prompt.findAll(options);
   if (prompts.length <= 0) return [];
 
   return prompts;
 };
 
-const create = async ({ prompt, type }: PromptInput): Promise<Prompt> => {
-  const foundPrompt = await Prompt.findOne({ where: { prompt, type } });
+const create = async (prompt: PromptInput): Promise<Prompt> => {
+  const promptOptions = {
+    where: { prompt: prompt.prompt, type: prompt.type },
+  };
+  const foundPrompt = await Prompt.findOne(promptOptions);
   if (foundPrompt) return foundPrompt;
 
-  const createdPrompt = await Prompt.create({ prompt, type });
+  const createdPrompt = await Prompt.create(prompt);
 
-  const bulkKeywords = splitPrompt({
-    prompt: createdPrompt.prompt,
-    type: createdPrompt.type,
-  });
-
+  const bulkKeywords = splitPrompt(createdPrompt.prompt, createdPrompt.type);
   if (bulkKeywords.length <= 0) throw new Error('No Keywords Found!');
 
   await KeywordService.bulkCreate(bulkKeywords);

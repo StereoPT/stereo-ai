@@ -1,4 +1,4 @@
-import { DataTypes, Model as SeqModel, Optional } from 'sequelize';
+import { DataTypes, Model as SeqModel, Optional, FindOptions } from 'sequelize';
 import { sequelize } from '../db';
 
 export type PromptType = 'positive' | 'negative';
@@ -13,6 +13,7 @@ interface PromptAttributes {
 
 export interface PromptInput extends Optional<PromptAttributes, 'id'> {}
 export interface PromptOutput extends Required<PromptAttributes> {}
+export interface PromptOptions extends FindOptions<PromptAttributes> {}
 
 export class Prompt extends SeqModel<PromptAttributes, PromptInput> {
   declare id: number;
