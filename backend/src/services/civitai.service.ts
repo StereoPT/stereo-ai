@@ -42,7 +42,7 @@ const getImages = async (civitai: CivitaiInput): Promise<CivitaiOutput> => {
     output.images.push({
       link: image.url,
       nsfw: image.nsfw,
-      model: image.meta.model || 'unknown',
+      model: image.meta.Model || 'unknown',
       steps: image.meta.steps || -1,
       sampler: image.meta.sampler || 'unknown',
       cfgScale: image.meta.cfgScale || -1,
