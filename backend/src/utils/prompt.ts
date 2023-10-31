@@ -1,7 +1,7 @@
 import { KeywordInput } from '../models/keyword.model';
 import { PromptInput } from '../models/prompt.model';
 
-const REGEX_REMOVE_PARENTHESIS = /([()])/g;
+const REGEX_REMOVE_PARENTHESIS = /([(){}])/g;
 const REGEX_REMOVE_TAGS = /<\b(.*?)>/g;
 const KEYWORD_MAX_LENGTH = 50;
 

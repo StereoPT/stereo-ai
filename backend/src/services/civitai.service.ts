@@ -17,7 +17,7 @@ const getImages = async ({ modelId, limit, sort, period }: CivitaiInput) => {
   if (!images) throw new Error('Failed to get Images from Civitai');
 
   for (const image of images) {
-    if (!image.meta.prompt || !image.meta.negativePrompt) continue;
+    if (!image.meta?.prompt || !image.meta?.negativePrompt) continue;
 
     // Get Prompts from Images Here
     await PromptsService.create({

@@ -10,6 +10,9 @@ const findAll = async (): Promise<Prompt[]> => {
 };
 
 const create = async ({ prompt, type }: PromptInput): Promise<Prompt> => {
+  const foundPrompt = await Prompt.findOne({ where: { prompt, type } });
+  if (foundPrompt) return foundPrompt;
+
   const createdPrompt = await Prompt.create({ prompt, type });
 
   const bulkKeywords = splitPrompt({
