@@ -10,4 +10,5 @@ const DB_DIALECT = (process.env.DATABASE_DIALECT || 'postgres') as Dialect;
 export const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
   host: DB_HOST,
   dialect: DB_DIALECT,
+  logging: false,
 });
