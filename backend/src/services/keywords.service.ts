@@ -16,8 +16,8 @@ const findAllWhere = async (options?: KeywordOptions): Promise<Keyword[]> => {
 };
 
 const findRandom = async (
+  amount: number,
   options?: KeywordOptions,
-  amount = 20,
 ): Promise<string[]> => {
   const keywords = await findAllWhere(options);
   if (keywords.length <= 0) throw new Error('No Keywords Found!');

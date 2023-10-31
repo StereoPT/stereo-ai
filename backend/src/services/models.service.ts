@@ -1,7 +1,7 @@
 import { Model, ModelInput, ModelOptions } from '../models/model.model';
 import { Random } from 'random-js';
 
-export const findAll = async (options?: ModelOptions): Promise<Model[]> => {
+const findAll = async (options?: ModelOptions): Promise<Model[]> => {
   const models = await Model.findAll(options);
   if (models.length <= 0) return [];
 
@@ -17,7 +17,7 @@ const findRandom = async (options?: ModelOptions): Promise<Model> => {
   return randomModel;
 };
 
-export const create = async (model: ModelInput): Promise<Model> => {
+const create = async (model: ModelInput): Promise<Model> => {
   const createdModel = await Model.create(model);
   if (!createdModel) throw new Error('Unable to Create Model!');
 
