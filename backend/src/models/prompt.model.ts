@@ -42,5 +42,11 @@ Prompt.init(
   {
     timestamps: true,
     sequelize,
+    indexes: [
+      {
+        unique: true,
+        fields: ['prompt', 'type'],
+      },
+    ],
   },
 );
