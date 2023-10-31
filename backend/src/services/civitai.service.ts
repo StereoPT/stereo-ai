@@ -1,19 +1,28 @@
 import axios from 'axios';
-import { CivitaiInput } from '../interfaces/civitai.interfaces';
-import ModelsService from './models.service';
+import { CivitaiInput, CivitaiOutput } from '../interfaces/civitai.interfaces';
 import PromptsService from './prompts.service';
 
-const getImages = async (civitai: CivitaiInput) => {
-  const cModel = civitai.modelId ?? (await ModelsService.findRandom()).modelId;
-  const cLimit = civitai.limit ?? 5;
-  const cSort = civitai.sort ?? 'Most Reactions';
-  const cPeriod = civitai.period ?? 'Week';
+import { Random } from 'random-js';
+import { stringify } from 'qs';
 
-  const { data } = await axios.get(
-    `https://civitai.com/api/v1/images?modelId=${cModel}&limit=${cLimit}&sort=${cSort}&period=${cPeriod}`,
-  );
-  const { items: images } = data;
+const CIVITAI_URL = 'https://civitai.com/api/v1';
+const SORT = ['Most Reactions', 'Most Comments', 'Newest'];
+const PERIOD = ['AllTime', 'Year', 'Month', 'Week', 'Day'];
 
+const getImages = async (civitai: CivitaiInput): Promise<CivitaiOutput> => {
+  let output: CivitaiOutput = { images: [] };
+  const random = new Random();
+
+  const queryParams = {
+    modelId: civitai.modelId,
+    limit: civitai.limit ?? random.integer(5, 25),
+    sort: civitai.sort ?? random.pick(SORT),
+    period: civitai.period ?? random.pick(PERIOD),
+  };
+
+  const {
+    data: { items: images },
+  } = await axios.get(`${CIVITAI_URL}/images?${stringify(queryParams)}`);
   if (!images) throw new Error('Failed to get Images from Civitai');
 
   for (const image of images) {
@@ -29,9 +38,18 @@ const getImages = async (civitai: CivitaiInput) => {
       prompt: image.meta.negativePrompt,
       type: 'negative',
     });
+
+    output.images.push({
+      link: image.url,
+      nsfw: image.nsfw,
+      model: image.meta.model || 'unknown',
+      steps: image.meta.steps || -1,
+      sampler: image.meta.sampler || 'unknown',
+      cfgScale: image.meta.cfgScale || -1,
+    });
   }
 
-  return images;
+  return output;
 };
 
 export default { getImages };

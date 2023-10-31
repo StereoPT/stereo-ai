@@ -12,13 +12,14 @@ export const getImages = async (
   try {
     const { modelId, limit, sort, period } = req.query;
 
-    const images = await CivitaiService.getImages({
+    const output = await CivitaiService.getImages({
       modelId,
       limit,
       sort,
       period,
     });
-    res.json(images);
+
+    res.json(output);
   } catch (error) {
     next(error);
   }
