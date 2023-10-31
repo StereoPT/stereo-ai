@@ -3,11 +3,11 @@ import { CivitaiInput } from '../interfaces/civitai.interfaces';
 import ModelsService from './models.service';
 import PromptsService from './prompts.service';
 
-const getImages = async ({ modelId, limit, sort, period }: CivitaiInput) => {
-  const cModel = modelId ?? (await ModelsService.findRandom({})).modelId;
-  const cLimit = limit ?? 5;
-  const cSort = sort ?? 'Most Reactions';
-  const cPeriod = period ?? 'Week';
+const getImages = async (civitai: CivitaiInput) => {
+  const cModel = civitai.modelId ?? (await ModelsService.findRandom()).modelId;
+  const cLimit = civitai.limit ?? 5;
+  const cSort = civitai.sort ?? 'Most Reactions';
+  const cPeriod = civitai.period ?? 'Week';
 
   const { data } = await axios.get(
     `https://civitai.com/api/v1/images?modelId=${cModel}&limit=${cLimit}&sort=${cSort}&period=${cPeriod}`,

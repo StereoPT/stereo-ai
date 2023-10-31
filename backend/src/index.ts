@@ -29,7 +29,7 @@ app.use(express.json());
 
 console.log('[StereoAI]');
 
-app.get<{}, { message: string }>('/', (req, res) => {
+app.get('/', (req, res) => {
   res.json({ message: 'StereoAI' });
 });
 

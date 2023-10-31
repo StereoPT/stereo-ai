@@ -1,15 +1,16 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request } from '../interfaces/routes.interfaces';
+import { NextFunction, Response } from 'express';
 
 import CivitaiService from '../services/civitai.service';
 import { CivitaiInput } from '../interfaces/civitai.interfaces';
 
 export const getImages = async (
-  req: Request,
+  req: Request<CivitaiInput>,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    const { modelId, limit, sort, period } = req.query as CivitaiInput;
+    const { modelId, limit, sort, period } = req.query;
 
     const images = await CivitaiService.getImages({
       modelId,
@@ -17,7 +18,6 @@ export const getImages = async (
       sort,
       period,
     });
-
     res.json(images);
   } catch (error) {
     next(error);

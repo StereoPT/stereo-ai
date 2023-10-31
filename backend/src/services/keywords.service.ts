@@ -1,31 +1,30 @@
 import { Keyword, KeywordInput, KeywordOptions } from '../models/keyword.model';
 import { Random } from 'random-js';
 
-const findAll = async ({ attributes }: KeywordOptions): Promise<Keyword[]> => {
-  const keywords = await Keyword.findAll({ attributes });
+const findAll = async (options?: KeywordOptions): Promise<Keyword[]> => {
+  const keywords = await Keyword.findAll(options);
   if (keywords.length <= 0) return [];
 
   return keywords;
 };
 
-const findAllWhere = async ({
-  attributes,
-  where,
-}: KeywordOptions): Promise<Keyword[]> => {
-  const keywords = await Keyword.findAll({ attributes, where });
+const findAllWhere = async (options?: KeywordOptions): Promise<Keyword[]> => {
+  const keywords = await Keyword.findAll(options);
   if (keywords.length <= 0) return [];
 
   return keywords;
 };
 
 const findRandom = async (
-  { attributes, where }: KeywordOptions,
+  options?: KeywordOptions,
   amount = 20,
-): Promise<Keyword[]> => {
-  const keywords = await findAllWhere({ attributes, where });
+): Promise<string[]> => {
+  const keywords = await findAllWhere(options);
+  if (keywords.length <= 0) throw new Error('No Keywords Found!');
+
   const shuffledKeywords = new Random()
     .shuffle(keywords)
-    .flatMap((k: any) => k.keyword);
+    .flatMap((k) => k.keyword);
   const randomKeywords = shuffledKeywords.slice(0, amount);
 
   return randomKeywords;

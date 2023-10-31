@@ -1,4 +1,5 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request } from '../interfaces/routes.interfaces';
+import { NextFunction, Response } from 'express';
 import ModelService from '../services/models.service';
 import KeywordService from '../services/keywords.service';
 
@@ -8,7 +9,7 @@ export const generate = async (
   next: NextFunction,
 ) => {
   try {
-    const randomModel = (await ModelService.findRandom({})) as any;
+    const randomModel = await ModelService.findRandom();
 
     const randomKeywords = {
       positive: await KeywordService.findRandom({
