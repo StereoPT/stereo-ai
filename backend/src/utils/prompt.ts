@@ -3,16 +3,17 @@ import { PromptType } from '../models/prompt.model';
 
 const REGEX_REMOVE_PARENTHESIS = /([(){}])/g;
 const REGEX_REMOVE_TAGS = /<\b(.*?)>/g;
-const KEYWORD_MAX_LENGTH = 50;
+const KEYWORD_MAX_LENGTH = 60;
 
 export const splitPrompt = (
   prompt: string,
   type: PromptType,
 ): KeywordInput[] => {
   const replacedPrompt = prompt
-    .replace(REGEX_REMOVE_PARENTHESIS, '')
-    .replace(REGEX_REMOVE_TAGS, '')
-    .replaceAll('.', ',');
+    .replaceAll(REGEX_REMOVE_PARENTHESIS, '')
+    .replaceAll(REGEX_REMOVE_TAGS, '')
+    .replaceAll('.', ',')
+    .replaceAll('+', ',');
 
   const keywords = replacedPrompt
     .split(',')
@@ -25,7 +26,7 @@ export const splitPrompt = (
       return k.length <= KEYWORD_MAX_LENGTH;
     })
     .map((k) => ({
-      keyword: k.trim().split(':').shift() as string,
+      keyword: k.trim().split(':').shift()?.trim() as string,
       type,
     }));
 
