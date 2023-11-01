@@ -7,6 +7,7 @@ interface PromptAttributes {
   id: number;
   prompt: string;
   type: PromptType;
+  nsfw: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -19,6 +20,7 @@ export class Prompt extends SeqModel<PromptAttributes, PromptInput> {
   declare id: number;
   declare prompt: string;
   declare type: PromptType;
+  declare nsfw: boolean;
   declare createdAt?: Date;
   declare updatedAt?: Date;
 }
@@ -37,6 +39,10 @@ Prompt.init(
     },
     type: {
       type: DataTypes.ENUM('positive', 'negative'),
+      allowNull: false,
+    },
+    nsfw: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
   },

@@ -32,11 +32,13 @@ const getImages = async (civitai: CivitaiInput): Promise<CivitaiOutput> => {
     await PromptsService.create({
       prompt: image.meta.prompt,
       type: 'positive',
+      nsfw: image.nsfw,
     });
 
     await PromptsService.create({
       prompt: image.meta.negativePrompt,
       type: 'negative',
+      nsfw: image.nsfw,
     });
 
     output.images.push({

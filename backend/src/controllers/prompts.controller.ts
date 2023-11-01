@@ -22,9 +22,9 @@ export const create = async (
   next: NextFunction,
 ) => {
   try {
-    const { prompt, type } = req.body;
+    const { prompt, type, nsfw } = req.body;
 
-    const createdPrompt = await PromptService.create({ prompt, type });
+    const createdPrompt = await PromptService.create({ prompt, type, nsfw });
     return res.json(createdPrompt);
   } catch (error) {
     next(error);
