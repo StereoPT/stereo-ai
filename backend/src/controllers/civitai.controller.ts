@@ -24,3 +24,23 @@ export const getImages = async (
     next(error);
   }
 };
+
+export const getModelImages = async (
+  req: Request<CivitaiInput>,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { limit, sort, period } = req.query;
+
+    const output = await CivitaiService.getModelImages({
+      limit,
+      sort,
+      period,
+    });
+
+    res.json(output);
+  } catch (error) {
+    next(error);
+  }
+};

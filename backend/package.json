@@ -33,7 +33,8 @@
     "pg-hstore": "^2.3.4",
     "qs": "^6.11.2",
     "random-js": "^2.1.0",
-    "sequelize": "^6.33.0"
+    "sequelize": "^6.33.0",
+    "waait": "^1.0.5"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",

@@ -8,7 +8,7 @@ export interface CivitaiInput {
   period?: CivitaiImagePeriod;
 }
 
-type CivitaiImage = {
+export type CivitaiImage = {
   link: string;
   nsfw: boolean;
   model: string;
