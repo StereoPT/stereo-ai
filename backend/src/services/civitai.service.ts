@@ -24,6 +24,7 @@ const civitaiModelImages = async (
   const queryParams = {
     modelId: civitai.modelId,
     limit: civitai.limit ?? random.integer(5, 25),
+    nsfw: civitai.nsfw,
     sort: civitai.sort ?? random.pick(SORT),
     period: civitai.period ?? random.pick(PERIOD),
   };

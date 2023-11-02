@@ -10,11 +10,12 @@ export const getImages = async (
   next: NextFunction,
 ) => {
   try {
-    const { modelId, limit, sort, period } = req.query;
+    const { modelId, limit, nsfw, sort, period } = req.query;
 
     const output = await CivitaiService.getImages({
       modelId,
       limit,
+      nsfw,
       sort,
       period,
     });
@@ -31,10 +32,11 @@ export const getModelImages = async (
   next: NextFunction,
 ) => {
   try {
-    const { limit, sort, period } = req.query;
+    const { limit, nsfw, sort, period } = req.query;
 
     const output = await CivitaiService.getModelImages({
       limit,
+      nsfw,
       sort,
       period,
     });
