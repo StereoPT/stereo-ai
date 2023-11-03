@@ -34,6 +34,7 @@
     "qs": "^6.11.2",
     "random-js": "^2.1.0",
     "sequelize": "^6.33.0",
+    "uuid": "^9.0.1",
     "waait": "^1.0.5"
   },
   "devDependencies": {
@@ -43,6 +44,7 @@
     "@types/morgan": "^1.9.4",
     "@types/node": "^20.2.5",
     "@types/supertest": "^2.0.12",
+    "@types/uuid": "^9.0.6",
     "@typescript-eslint/eslint-plugin": "^5.59.9",
     "@typescript-eslint/parser": "^5.59.9",
     "eslint": "^8.42.0",
