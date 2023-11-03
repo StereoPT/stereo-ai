@@ -3,6 +3,7 @@ import { KeywordType } from '../models/keyword.model';
 
 const REGEX_REMOVE_PARENTHESIS = /([(){}])/g;
 const REGEX_REMOVE_TAGS = /<\b(.*?)>/g;
+const REGEX_REMOVE_NEWLINE = /(\r\n|\n|\r)/g;
 const KEYWORD_MAX_LENGTH = 60;
 
 export const splitPrompt = (
@@ -10,6 +11,7 @@ export const splitPrompt = (
   type: KeywordType,
 ): KeywordInput[] => {
   const replacedPrompt = prompt
+    .replaceAll(REGEX_REMOVE_NEWLINE, '')
     .replaceAll(REGEX_REMOVE_PARENTHESIS, '')
     .replaceAll(REGEX_REMOVE_TAGS, '')
     .replaceAll('.', ',')
