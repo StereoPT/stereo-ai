@@ -8,7 +8,6 @@ import {
   KeywordsRoutes,
   ModelRoutes,
   GenerationRoutes,
-  PromptRoutes,
   CivitaiRoutes,
   ImageRoutes,
 } from './routes';
@@ -37,7 +36,6 @@ app.get('/', (req, res) => {
 app.use('/api/keywords', KeywordsRoutes);
 app.use('/api/models', ModelRoutes);
 app.use('/api/generations', GenerationRoutes);
-app.use('/api/prompts', PromptRoutes);
 app.use('/api/civitai', CivitaiRoutes);
 app.use('/api/images', ImageRoutes);
 app.use(NotFound, ErrorHandler);

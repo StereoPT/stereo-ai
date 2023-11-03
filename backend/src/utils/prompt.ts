@@ -1,5 +1,5 @@
 import { KeywordInput } from '../models/keyword.model';
-import { PromptType } from '../models/prompt.model';
+import { KeywordType } from '../models/keyword.model';
 
 const REGEX_REMOVE_PARENTHESIS = /([(){}])/g;
 const REGEX_REMOVE_TAGS = /<\b(.*?)>/g;
@@ -7,7 +7,7 @@ const KEYWORD_MAX_LENGTH = 60;
 
 export const splitPrompt = (
   prompt: string,
-  type: PromptType,
+  type: KeywordType,
 ): KeywordInput[] => {
   const replacedPrompt = prompt
     .replaceAll(REGEX_REMOVE_PARENTHESIS, '')
