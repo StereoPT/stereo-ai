@@ -11,10 +11,7 @@ const findAll = async (options?: ImageOptions): Promise<Image[]> => {
 };
 
 const create = async (image: ImageInput): Promise<Image> => {
-  const imageOptions = {
-    where: { uuid: image.uuid },
-  };
-  const foundImage = await Image.findOne(imageOptions);
+  const foundImage = await Image.findOne({ where: { id: image.id } });
   if (foundImage) return foundImage;
 
   const createdImage = await Image.create({ uuid: uuidv4(), ...image });
