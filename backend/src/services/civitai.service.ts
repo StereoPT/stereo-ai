@@ -1,11 +1,8 @@
 import axios from 'axios';
 import wait from 'waait';
-import {
-  CivitaiImage,
-  CivitaiInput,
-  CivitaiOutput,
-} from '../interfaces/civitai.interfaces';
-import PromptsService from './prompts.service';
+import { CivitaiInput } from '../interfaces/civitai.interfaces';
+import { Image } from '../models/image.model';
+import ImageService from './images.service';
 import ModelService from './models.service';
 
 import { Random } from 'random-js';
@@ -15,10 +12,8 @@ const CIVITAI_URL = 'https://civitai.com/api/v1';
 const SORT = ['Most Reactions', 'Most Comments', 'Newest'];
 const PERIOD = ['AllTime', 'Year', 'Month', 'Week', 'Day'];
 
-const civitaiModelImages = async (
-  civitai: CivitaiInput,
-): Promise<CivitaiImage[]> => {
-  const civitaiImages = [];
+const civitaiModelImages = async (civitai: CivitaiInput): Promise<Image[]> => {
+  const civitaiImages: Image[] = [];
   const random = new Random();
 
   const queryParams = {
@@ -37,42 +32,34 @@ const civitaiModelImages = async (
   for (const image of images) {
     if (!image.meta?.prompt || !image.meta?.negativePrompt) continue;
 
-    // Get Prompts from Images Here
-    await PromptsService.create({
-      prompt: image.meta.prompt,
-      type: 'positive',
+    const civitaiImage = await ImageService.create({
+      id: image.id,
       nsfw: image.nsfw,
-    });
-
-    await PromptsService.create({
-      prompt: image.meta.negativePrompt,
-      type: 'negative',
-      nsfw: image.nsfw,
-    });
-
-    civitaiImages.push({
-      link: image.url,
-      nsfw: image.nsfw,
+      url: image.url,
       model: image.meta.Model || 'unknown',
+      positivePrompt: image.meta?.prompt,
+      negativePrompt: image.meta?.negativePrompt,
+      width: image.width,
+      height: image.height,
       steps: image.meta.steps || -1,
       sampler: image.meta.sampler || 'unknown',
       cfgScale: image.meta.cfgScale || -1,
+      clipSkip: image.meta['Clip skip'] || -1,
     });
+
+    civitaiImages.push(civitaiImage);
   }
 
   return civitaiImages;
 };
 
-const getImages = async (civitai: CivitaiInput): Promise<CivitaiOutput> => {
+const getImages = async (civitai: CivitaiInput): Promise<Image[]> => {
   const images = await civitaiModelImages(civitai);
-  return { images };
+  return images;
 };
 
-const getModelImages = async (
-  civitai: CivitaiInput,
-): Promise<CivitaiOutput[]> => {
-  let output: CivitaiOutput[] = [];
-
+const getModelImages = async (civitai: CivitaiInput): Promise<Image[]> => {
+  let output: Image[] = [];
   const models = await ModelService.findAll();
 
   for (const model of models) {
@@ -80,7 +67,7 @@ const getModelImages = async (
       ...civitai,
       modelId: model.modelId.toString(),
     });
-    output.push({ images });
+    output.push(...images);
 
     await wait(2000);
   }

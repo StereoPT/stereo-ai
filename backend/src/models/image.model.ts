@@ -86,7 +86,7 @@ Image.init(
       allowNull: false,
     },
     cfgScale: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.REAL,
       allowNull: false,
     },
     clipSkip: {

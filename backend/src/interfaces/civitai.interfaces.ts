@@ -8,16 +8,3 @@ export interface CivitaiInput {
   sort?: CivitaiImageSort;
   period?: CivitaiImagePeriod;
 }
-
-export type CivitaiImage = {
-  link: string;
-  nsfw: boolean;
-  model: string;
-  steps: number;
-  sampler: string;
-  cfgScale: number;
-};
-
-export interface CivitaiOutput {
-  images: CivitaiImage[];
-}
