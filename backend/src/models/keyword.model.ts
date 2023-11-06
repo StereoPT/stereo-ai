@@ -1,4 +1,4 @@
-import { DataTypes, Model as SeqModel, FindOptions } from 'sequelize';
+import { DataTypes, Model as SeqModel, FindOptions, Optional } from 'sequelize';
 import { sequelize } from '../db';
 
 export type KeywordType = 'positive' | 'negative';
@@ -6,19 +6,19 @@ export type KeywordType = 'positive' | 'negative';
 interface KeywordAttributes {
   keyword: string;
   type: KeywordType;
-  nsfw: boolean;
+  usages: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export interface KeywordInput extends KeywordAttributes {}
+export interface KeywordInput extends Optional<KeywordAttributes, 'usages'> {}
 export interface KeywordOutput extends Required<KeywordAttributes> {}
 export interface KeywordOptions extends FindOptions<KeywordAttributes> {}
 
 export class Keyword extends SeqModel<KeywordAttributes, KeywordInput> {
   declare keyword: string;
   declare type: KeywordType;
-  declare nsfw: boolean;
+  declare usages: number;
   declare createdAt?: Date;
   declare updatedAt?: Date;
 }
@@ -35,9 +35,8 @@ Keyword.init(
       primaryKey: true,
       allowNull: false,
     },
-    nsfw: {
-      type: DataTypes.BOOLEAN,
-      primaryKey: true,
+    usages: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },

@@ -22,9 +22,13 @@ export const create = async (
   next: NextFunction,
 ) => {
   try {
-    const { keyword, type, nsfw } = req.body;
+    const { keyword, type } = req.body;
 
-    const createdKeyword = await KeywordService.create({ keyword, type, nsfw });
+    const createdKeyword = await KeywordService.create({
+      keyword,
+      type,
+      usages: 1,
+    });
     return res.json(createdKeyword);
   } catch (error) {
     next(error);

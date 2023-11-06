@@ -36,6 +36,27 @@ const create = async (keyword: KeywordInput): Promise<Keyword> => {
   return createdKeyword;
 };
 
+const createOrUpdate = async (keyword: KeywordInput): Promise<Keyword> => {
+  const keywordWhere = { keyword: keyword.keyword, type: keyword.type };
+
+  const foundKeyword = await Keyword.findOrCreate({
+    where: keywordWhere,
+    defaults: { ...keyword },
+  });
+
+  if (foundKeyword[1]) return foundKeyword[0];
+
+  const updatedKeyword = await Keyword.update(
+    { ...keyword, usages: foundKeyword[0].usages + 1 },
+    {
+      where: keywordWhere,
+      returning: true,
+    },
+  );
+
+  return updatedKeyword[1][0];
+};
+
 const bulkCreate = async (keywords: KeywordInput[]): Promise<Keyword[]> => {
   const createdKeywords = await Keyword.bulkCreate(keywords, {
     ignoreDuplicates: true,
@@ -44,10 +65,25 @@ const bulkCreate = async (keywords: KeywordInput[]): Promise<Keyword[]> => {
   return createdKeywords;
 };
 
+const bulkCreateOrUpdate = async (
+  keywords: KeywordInput[],
+): Promise<Keyword[]> => {
+  let ouput: Keyword[] = [];
+
+  for (const keyword of keywords) {
+    const createdOrUpdatedKeyword = await createOrUpdate(keyword);
+    ouput.push(createdOrUpdatedKeyword);
+  }
+
+  return ouput;
+};
+
 export default {
   findAll,
   findAllWhere,
   findRandom,
   create,
+  createOrUpdate,
   bulkCreate,
+  bulkCreateOrUpdate,
 };

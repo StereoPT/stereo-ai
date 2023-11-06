@@ -16,22 +16,14 @@ const create = async (image: ImageInput): Promise<Image> => {
 
   const createdImage = await Image.create({ uuid: uuidv4(), ...image });
 
-  const bulkPositiveKeywords = splitPrompt(
-    createdImage.positivePrompt,
-    'positive',
-    createdImage.nsfw,
-  );
-  const bulkNegativeKeywords = splitPrompt(
-    createdImage.negativePrompt,
-    'negative',
-    createdImage.nsfw,
-  );
+  const positiveKeywords = splitPrompt(createdImage.positivePrompt, 'positive');
+  const negativeKeywords = splitPrompt(createdImage.negativePrompt, 'negative');
 
-  if (bulkPositiveKeywords.length <= 0 || bulkNegativeKeywords.length <= 0)
+  if (positiveKeywords.length <= 0 || negativeKeywords.length <= 0)
     throw new Error('No Keywords Found!');
 
-  await KeywordService.bulkCreate(bulkPositiveKeywords);
-  await KeywordService.bulkCreate(bulkNegativeKeywords);
+  await KeywordService.bulkCreateOrUpdate(positiveKeywords);
+  await KeywordService.bulkCreateOrUpdate(negativeKeywords);
 
   return createdImage;
 };
