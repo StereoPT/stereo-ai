@@ -9,6 +9,7 @@ const KEYWORD_MAX_LENGTH = 60;
 export const splitPrompt = (
   prompt: string,
   type: KeywordType,
+  nsfw: boolean,
 ): KeywordInput[] => {
   const replacedPrompt = prompt
     .replaceAll(REGEX_REMOVE_NEWLINE, '')
@@ -30,6 +31,7 @@ export const splitPrompt = (
     .map((k) => ({
       keyword: k.trim().split(':').shift()?.trim() as string,
       type,
+      nsfw,
     }));
 
   return keywords;

@@ -6,6 +6,7 @@ export type KeywordType = 'positive' | 'negative';
 interface KeywordAttributes {
   keyword: string;
   type: KeywordType;
+  nsfw: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -17,6 +18,7 @@ export interface KeywordOptions extends FindOptions<KeywordAttributes> {}
 export class Keyword extends SeqModel<KeywordAttributes, KeywordInput> {
   declare keyword: string;
   declare type: KeywordType;
+  declare nsfw: boolean;
   declare createdAt?: Date;
   declare updatedAt?: Date;
 }
@@ -30,6 +32,11 @@ Keyword.init(
     },
     type: {
       type: DataTypes.ENUM('positive', 'negative'),
+      primaryKey: true,
+      allowNull: false,
+    },
+    nsfw: {
+      type: DataTypes.BOOLEAN,
       primaryKey: true,
       allowNull: false,
     },

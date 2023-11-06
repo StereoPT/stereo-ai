@@ -19,10 +19,12 @@ const create = async (image: ImageInput): Promise<Image> => {
   const bulkPositiveKeywords = splitPrompt(
     createdImage.positivePrompt,
     'positive',
+    createdImage.nsfw,
   );
   const bulkNegativeKeywords = splitPrompt(
     createdImage.negativePrompt,
     'negative',
+    createdImage.nsfw,
   );
 
   if (bulkPositiveKeywords.length <= 0 || bulkNegativeKeywords.length <= 0)
